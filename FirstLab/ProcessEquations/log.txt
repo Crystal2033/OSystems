@@ -1,0 +1,21 @@
+I`m PARENT process, my id: 3773. My child id: 3774
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3774
+Was read: 123.45+26.55
+I`m PARENT process, my id: 3773. My child id: 3777
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3777
+Was read: 125*8
+I`m PARENT process, my id: 3773. My child id: 3778
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3778
+Was read: 234/0
+I`m PARENT process, my id: 3773. My child id: 3779
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3779
+Was read: 1245/15
+I`m PARENT process, my id: 3773. My child id: 3780
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3780
+Was read: 1028.567-28.567
+I`m PARENT process, my id: 3773. My child id: 3781
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3781
+Was read: 5*5.5
+I`m PARENT process, my id: 3773. My child id: 3782
+My child has ended his work, and i have to return, my id: 3773. ChildId: 3782
+Was read: 90*123
