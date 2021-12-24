@@ -3,4 +3,7 @@ a.out
 client
 server
 FileToMakeKey
-
+queue
+queueclear
+sems
+semaphores

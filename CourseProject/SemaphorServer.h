@@ -14,18 +14,19 @@
 typedef enum {CLIENT_GET_MEM ,CLIENT_SND_REQ, SERVER_RCV_REQ, SERVER_SND_RPY, CLIENT_RCV_RPY, RESET_MEM} STATUS;
 void getsem(const int semid, struct sembuf* sops, STATUS status);
 
-//union semun
-//{
-//        int val;
-//        struct semid_ds *mbuf;
-//        ushort * array;
-//} arg;
+union semun
+{
+        int val;
+        struct semid_ds *mbuf;
+        ushort * array;
+} arg;
 
 
 void getsem(const int semid, struct sembuf* sops, STATUS status)
 {
 	sops[0].sem_num = 0;
 	sops[1].sem_num = 1;
+
 	printf("Set statuses.\n");
 	switch(status)
 	{
@@ -72,18 +73,18 @@ void getsem(const int semid, struct sembuf* sops, STATUS status)
 			break;
 		}
 	}
-	//ushort sem_value[2];
-	//arg.array = sem_value;
-	//semctl(semid, 0, GETALL, arg);
-	//printf("Semaphores values: s[0]: %d, s[1]: %d\n", sem_value[0], sem_value[1]);
-	//printf("PID of last process to change the value of [0] semaphore:  %d\n", semctl(semid, 0, GETPID, arg));
-	//printf("PID of last process to change the value of [1] semaphore:  %d\n", semctl(semid, 1, GETPID, arg));
-	//printf("Quantity of processes waiting when [0] semaphor is increasing:  %d\n", semctl(semid, 0, GETNCNT, arg));
-	//printf("Quantity of processes waiting when [1] semaphor is increasing:  %d\n", semctl(semid, 1, GETNCNT, arg));
-	//printf("Quantity of processes waiting when [0] semaphor will become equal to 0:  %d\n", semctl(semid, 0, GETZCNT, arg));
-	//printf("Quantity of processes waiting when [1] semaphor will become equal to 0:  %d\n", semctl(semid, 1, GETZCNT, arg));
-	//printf("Making semop...\n");
-	//printf("Send request: %d, %d\n", sops[0].sem_op, sops[1].sem_op);
+	ushort sem_value[2];
+	arg.array = sem_value;
+	semctl(semid, 0, GETALL, arg);
+	printf("Semaphores values: s[0]: %d, s[1]: %d\n", sem_value[0], sem_value[1]);
+	printf("PID of last process to change the value of [0] semaphore:  %d\n", semctl(semid, 0, GETPID, arg));
+	printf("PID of last process to change the value of [1] semaphore:  %d\n", semctl(semid, 1, GETPID, arg));
+	printf("Quantity of processes waiting when [0] semaphor is increasing:  %d\n", semctl(semid, 0, GETNCNT, arg));
+	printf("Quantity of processes waiting when [1] semaphor is increasing:  %d\n", semctl(semid, 1, GETNCNT, arg));
+	printf("Quantity of processes waiting when [0] semaphor will become equal to 0:  %d\n", semctl(semid, 0, GETZCNT, arg));
+	printf("Quantity of processes waiting when [1] semaphor will become equal to 0:  %d\n", semctl(semid, 1, GETZCNT, arg));
+	printf("Making semop...\n");
+	printf("Send request: %d, %d\n", sops[0].sem_op, sops[1].sem_op);
 	if(semop(semid, sops, 2) == -1)
 	{
 		printf("There is an error with semaphor operations.\n");

@@ -75,6 +75,8 @@ int main(int argc, char* argv[])
 		{	
 			user_message.user_choice = SORT_FILES;			
 			printf("Was chosen 1.\n");
+			
+			
 			break;
 		}
 		case 2:

@@ -86,6 +86,9 @@ int main(int argc, char* argv[])
 	sops[0].sem_num = 0;
 	sops[1].sem_num = 1;
 	
+	sops[0].sem_flg = SEM_UNDO;
+	sops[1].sem_flg = SEM_UNDO;
+	
 	getsem(semid, sops, RESET_MEM);
 	
 
@@ -117,6 +120,3 @@ int main(int argc, char* argv[])
 	
 	return 0;
 }
-
-
-
