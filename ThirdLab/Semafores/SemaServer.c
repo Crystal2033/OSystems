@@ -10,7 +10,7 @@
 #define SIZE 256
 
 extern int errno;
-enum {CLIENT, SERVER};
+
 typedef struct Equ_and_res
 {
 	char equation_str[256];
@@ -122,42 +122,45 @@ void getsem(const int semid, struct sembuf* sops, STATUS status)
 {
 	sops[0].sem_num = 0;
 	sops[1].sem_num = 1;
+
+	sops[0].sem_flg = SEM_UNDO;
+	sops[1].sem_flg = SEM_UNDO;
 	switch(status)
 	{
 		case CLIENT_GET_MEM:
 		{
-			sops[CLIENT].sem_op = 0;
-			sops[SERVER].sem_op = -1;
+			sops[0].sem_op = 0;
+			sops[1].sem_op = -1;
 			break;
 		}
 		case CLIENT_SND_REQ:
 		{
-			sops[CLIENT].sem_op = 1;
-			sops[SERVER].sem_op = 0;
+			sops[0].sem_op = 1;
+			sops[1].sem_op = 0;
 			break;
 		}
 		case SERVER_RCV_REQ:
 		{
-			sops[CLIENT].sem_op = -1;
-			sops[SERVER].sem_op = 0;
+			sops[0].sem_op = -1;
+			sops[1].sem_op = 0;
 			break;
 		}
 		case SERVER_SND_RPY:
 		{
-			sops[CLIENT].sem_op = 1;
-			sops[SERVER].sem_op = 1;
+			sops[0].sem_op = 1;
+			sops[1].sem_op = 1;
 			break;
 		}
 		case CLIENT_RCV_RPY:
 		{
-			sops[CLIENT].sem_op = -1;
-			sops[SERVER].sem_op = -1;
+			sops[0].sem_op = -1;
+			sops[1].sem_op = -1;
 			break;
 		}
 		case RESET_MEM:
 		{
-			sops[CLIENT].sem_op = 0;
-			sops[SERVER].sem_op = 1;
+			sops[0].sem_op = 0;
+			sops[1].sem_op = 1;
 			printf("Reset semaphores done! \n");
 			break;
 		}
@@ -299,8 +302,8 @@ int main(int argc, char* argv[])
 	
 	
 	
-	sops[CLIENT].sem_num = CLIENT;
-	sops[SERVER].sem_num = SERVER;
+	sops[0].sem_num = 0;
+	sops[1].sem_num = 1;
 	
 	getsem(semid, sops, RESET_MEM);
 	

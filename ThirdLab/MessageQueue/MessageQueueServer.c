@@ -293,8 +293,8 @@ NUMBER* third_degree_equation(long double* coeff_arr)
 
 int main(int argc, char* argv[])
 {
-	//key_t key = ftok("FileToMakeKey", 'f');
-	key_t key = 2200;
+	key_t key = ftok("MessageQueueClient.c", 'f');
+	//key_t key = 2200;
 	int msid = 0;
 	CLIENT_MES my_struct_mes;
 	SERVER_MES ans;

@@ -87,8 +87,8 @@ void input_coeffs_for_cubic(long double* coeffs)
 
 int main(int argc, char* argv[])
 {
-	//key_t key = ftok("FileToMakeKey", 'f');
-	key_t key = 2200;
+	key_t key = ftok("MessageQueueClient.c", 'f');
+	//key_t key = 2200;
 	int msid = 0;
 	size_t my_pid = getpid();
 	CLIENT_MES my_struct_mes;

@@ -20,21 +20,21 @@ int word_counter(const char* str)
 	int word_counter = 0;
 	int i = 0;
 	int symbols_counter = 0;
-	
-	while(str[i] != '\0')
+
+	while (str[i] != '\0')
 	{
-		while(isalpha(str[i]) && (str[i] != '\0') )
+		while (isalpha(str[i]) && (str[i] != '\0'))
 		{
 			i++;
 			symbols_counter++;
 		}
-		if(symbols_counter != 0)
+		if (symbols_counter != 0)
 		{
 			word_counter++;
 		}
 		symbols_counter = 0;
-		
-		while(!isalpha(str[i]) && (str[i] != '\0') )
+
+		while (!isalpha(str[i]) && (str[i] != '\0'))
 		{
 			i++;
 		}
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 	struct sockaddr_in addr;
 	MESSAGE mes_struct;
 	int bytes_read;
-	
+
 	listener_sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (listener_sock == -1)
 	{
@@ -62,12 +62,12 @@ int main(int argc, char* argv[])
 		exit(-1);
 	}
 	printf("Socket ID: %d\n", listener_sock);
-	
+
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(1234);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	if(bind(listener_sock, (struct sockaddr *)&addr, sizeof(addr)) == -1)
+	if (bind(listener_sock, (struct sockaddr*)&addr, sizeof(addr)) == -1)
 	{
 		printf("[SERVER]: There is an error with binding sockets.\n");
 		close(listener_sock);
@@ -75,18 +75,18 @@ int main(int argc, char* argv[])
 	}
 	printf("Listening...\n");
 	int status = listen(listener_sock, 5);
-	if(status != 0)
+	if (status != 0)
 	{
 		printf("[SERVER]: There is an error with listenning sockets.\n");
 		close(listener_sock);
 		exit(-1);
 	}
-	printf("Stop listenning!\n");
-	
-	while(1)
+	//printf("Stop listenning!\n");
+
+	while (1)
 	{
 		accepted_sock = accept(listener_sock, NULL, NULL);
-		if(accepted_sock == -1)
+		if (accepted_sock == -1)
 		{
 			printf("[SERVER]: There is an error with accepting sockets.\n");
 			close(listener_sock);
@@ -99,8 +99,8 @@ int main(int argc, char* argv[])
 			close(listener_sock);
 			bytes_read = recv(accepted_sock, (MESSAGE*)&mes_struct, sizeof(MESSAGE), 0);
 			printf("Recieved...\n");
-			
-			if(bytes_read <= 0)
+
+			if (bytes_read <= 0)
 			{
 				printf("[SERVER]: There is an error with receiving.\n");
 				close(accepted_sock);
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 			}
 			mes_struct.word_counter = word_counter(mes_struct.mes);
 			printf("Sending...\n");
-			if ( send(accepted_sock, (MESSAGE*)&mes_struct, bytes_read, 0) == -1 )
+			if (send(accepted_sock, (MESSAGE*)&mes_struct, bytes_read, 0) == -1)
 			{
 				printf("[SERVER]: There is an error with sending message.\n");
 			}
@@ -117,9 +117,9 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-        		close(accepted_sock);
-        	}
-    }
+			close(accepted_sock);
+		}
+	}
 
 	return 0;
 }
